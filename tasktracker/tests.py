@@ -37,5 +37,11 @@ class SecurityTest(TestCase):
 		all_tasks = Task.objects.all()
 		self.assertEqual(len(all_tasks), 1)
 			
-			
+	def testHttpMethods(self):
+		# TODO
+		pass
+
+	def testPositiveValidation(self):
+		# TODO
+		pass
 
