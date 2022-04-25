@@ -64,6 +64,10 @@ class SecurityTest(TestCase):
 		response = self.user2client.get(f"/tasktracker/delete/{task_id}/")
 		self.assertEqual(response.status_code, 400)
 
+		all_tasks = Task.objects.all()
+		self.assertEqual(len(all_tasks), 1)
+		
+
 
 	def testPositiveValidation(self):
 		# TODO
