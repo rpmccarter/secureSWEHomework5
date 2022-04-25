@@ -23,9 +23,45 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '#n6kks0cs$a-7k*67)k(nof$7z6&l+u97ea)nl_r8frg_mrmd1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# deactivate debug mode for production
+DEBUG = False
 
-ALLOWED_HOSTS = []
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'file': {
+            'class': 'logging.FileHandler',
+            'filename': 'general.log',
+            'formatter': 'verbose',
+            'level': 'DEBUG',
+        },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+            'level': 'WARNING',
+        }
+    },
+    'loggers': {
+        '': {
+            'level': 'DEBUG',
+            'handlers': ['file', 'console'],
+        },
+    },
+    'formatters': {
+        'simple': {
+            'format': '[{levelname}] {message}',
+            'style': '{',
+        },
+        'verbose': {
+            'format': '[{levelname}] {message}\n\ttime: {asctime}\n\tprocess: {process:d}\n\tthread: {thread:d}\n',
+            'style': '{',
+        }
+    },
+}
+
+# use the same default set of allowed hosts that is used when debug is True
+# https://docs.djangoproject.com/en/4.0/ref/settings/#:~:text=When%20DEBUG%20is%20True%20and%20ALLOWED_HOSTS%20is%20empty%2C%20the%20host%20is%20validated%20against%20%5B%27.localhost%27%2C%20%27127.0.0.1%27%2C%20%27%5B%3A%3A1%5D%27%5D.
+ALLOWED_HOSTS = ['*'] # ['.localhost', '127.0.0.1', '[::1]']
 
 
 # Application definition
@@ -81,6 +117,7 @@ DATABASES = {
     }
 }
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
